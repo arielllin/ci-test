@@ -1,0 +1,27 @@
+name: Update Snapshot
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - src/App.vue
+
+jobs:
+  update-snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Update Snapshot
+        run: |
+          rm -f src/components/HelloWorld.vue
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.PAT }}
+          commit-message: |
+            chore(main): update snapshot
+          title: |
+            chore(main): update snapshot
