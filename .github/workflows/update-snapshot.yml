@@ -1,0 +1,24 @@
+name: Update Snapshot
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - src/App.vue
+
+jobs:
+  update-snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Make changes to pull request
+        run: date +%s > report.txt
+
+      # Make changes to pull request here
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.PAT }}
